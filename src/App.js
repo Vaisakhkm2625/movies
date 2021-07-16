@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Movie from "./components/Movie";
+import Navbar from "./components/Navbar";
+import "./components/Navbar.css";
 
 const RECOMENDATION_API =
   "https://api.themoviedb.org/3/discover/movie?api_key=d2738925a81a0e5491385c4c713d4d02&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate";
@@ -38,23 +41,82 @@ function App() {
     setSearchTerm(e.target.value);
   };
 
-  return (
-    <>
-      <header>
-        <form onSubmit={handleOnSubmit}>
-          <input
-            className="search"
-            type="search"
-            placeholder="search..."
-            value={searchTerm}
-            onChange={handleOnChange}
-          />
-        </form>
-      </header>
+  function Home() {
+    return (
       <div className="movie-container">
         {movies.length > 0 &&
-          movies.map((movie) => <Movie Key={Movie.id} {...movie} />)}
+          movies.map((movie) => <Movie key={movie.id} {...movie} />)}
       </div>
+    );
+  }
+
+  function About() {
+    return <h2>About</h2>;
+  }
+
+  function Movies() {
+    return <h2>Movies</h2>;
+  }
+
+  function Tv() {
+    return <h2>Tv</h2>;
+  }
+
+  function Kids() {
+    return <h2>Kids</h2>;
+  }
+
+  return (
+    <>
+      <Router>
+        <header>
+          <div>
+            <nav>
+              <ul>
+                <li>
+                  <Link to="/">Home</Link>
+                </li>
+                <li>
+                  <Link to="/movies">Movies</Link>
+                </li>
+                <li>
+                  <Link to="/tv">Tv</Link>
+                </li>
+                <li>
+                  <Link to="/kids">Kids</Link>
+                </li>
+              </ul>
+            </nav>
+
+            {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+          </div>
+
+          <form onSubmit={handleOnSubmit}>
+            <input
+              className="search"
+              type="search"
+              placeholder="search..."
+              value={searchTerm}
+              onChange={handleOnChange}
+            />
+          </form>
+        </header>
+        <Switch>
+          <Route path="/movies">
+            <Movies />
+          </Route>
+          <Route path="/tv">
+            <Tv />
+          </Route>
+          <Route path="/kids">
+            <Kids />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </Router>
     </>
   );
 }
