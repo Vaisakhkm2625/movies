@@ -43,9 +43,17 @@ function App() {
 
   function Home() {
     return (
-      <div className="movie-container">
-        {movies.length > 0 &&
-          movies.map((movie) => <Movie key={movie.id} {...movie} />)}
+      <div className="home">
+        <div className="banner">
+          <img
+            src="https://images.unsplash.com/photo-1585951237318-9ea5e175b891?ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8bW92aWV8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"
+            alt="img"
+          />
+        </div>
+        <div className="movie-container">
+          {movies.length > 0 &&
+            movies.map((movie) => <Movie key={movie.id} {...movie} />)}
+        </div>
       </div>
     );
   }
