@@ -43,9 +43,28 @@ function App() {
 
   function Home() {
     return (
-      <div className="movie-container">
-        {movies.length > 0 &&
-          movies.map((movie) => <Movie key={movie.id} {...movie} />)}
+      <div className="home">
+        <div className="banner">
+
+          <form onSubmit={handleOnSubmit}>
+            <input
+              className="search"
+              type="search"
+              placeholder="search..."
+              value={searchTerm}
+              onChange={handleOnChange}
+            />
+          </form>
+
+	    <img
+            src="https://images.unsplash.com/photo-1585951237318-9ea5e175b891?ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8bW92aWV8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"
+            alt="img"
+          />
+        </div>
+        <div className="movie-container">
+          {movies.length > 0 &&
+            movies.map((movie) => <Movie key={movie.id} {...movie} />)}
+        </div>
       </div>
     );
   }
@@ -72,35 +91,18 @@ function App() {
         <header>
           <div>
             <nav>
-              <ul>
-                <li>
-                  <Link to="/">Home</Link>
-                </li>
-                <li>
-                  <Link to="/movies">Movies</Link>
-                </li>
-                <li>
-                  <Link to="/tv">Tv</Link>
-                </li>
-                <li>
-                  <Link to="/kids">Kids</Link>
-                </li>
-              </ul>
+	  <div className="top-nav-container">
+                  <Link className="top-nav-option" to="/">Home</Link>
+                  <Link className="top-nav-option" to="/movies">Movies</Link>
+                  <Link className="top-nav-option" to="/tv">Tv</Link>
+                  <Link className="top-nav-option" to="/kids">Kids</Link>
+	  </div>
             </nav>
 
             {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
           </div>
 
-          <form onSubmit={handleOnSubmit}>
-            <input
-              className="search"
-              type="search"
-              placeholder="search..."
-              value={searchTerm}
-              onChange={handleOnChange}
-            />
-          </form>
         </header>
         <Switch>
           <Route path="/movies">
@@ -122,3 +124,4 @@ function App() {
 }
 
 export default App;
+
